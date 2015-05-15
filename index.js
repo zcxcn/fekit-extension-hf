@@ -1,15 +1,15 @@
-require('date-utils');
+ 
 var fs = require('fs')
 var syspath = require('path')
 var url = require('url')
 var querystring = require('querystring')
 var baselib = syspath.join( module.parent.filename , '../' )
 var utils = require( syspath.join( baselib , 'util'  ) )
-var minCode = require( syspath.join( baselib , 'commands/min' ) ).minCode
+var minCode = require( syspath.join( baselib , 'commands/_min_mincode' ) ).minCode //todo 引用自己的压缩工具
 
 var http = require("http")
 
-var VER = new Date().toFormat('YYYYMMDDHH24MISS')
+var VER = 123//new Date().toFormat('YYYYMMDDHH24MISS') //todo toFormat is undefined
 
 exports.usage = "处理header&footer项目编译使用";
 
@@ -27,6 +27,7 @@ exports.run = function( options ){
         var reg = /src\/.*?\/.*.html$/;
 
         utils.path.each_directory( process.cwd() , function( path ){ 
+            console.log(path)
             var partial_path = path.replace( process.cwd() , '' );
             var path2 = path.replace(/\\/g , '/')
             if( reg.test( path2 ) ) {
