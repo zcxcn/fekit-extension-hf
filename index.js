@@ -10,7 +10,7 @@ var minCode = require( syspath.join( baselib , 'commands/_min_mincode' ) ).minCo
 var http = require("http")
 
 var VER = 123//new Date().toFormat('YYYYMMDDHH24MISS') //todo toFormat is undefined
-
+var isDebug=false;
 exports.usage = "处理header&footer项目编译使用";
 
 exports.set_options = function( optimist ){
@@ -41,13 +41,16 @@ exports.run = function( options ){
 }
 
 function run_server( options ){
-
+    isDebug=true;
     var port = options.p || options.port || "80"
 
     http.createServer(function(req,res){
-            if (!/\./.test(req.url)) {
+            if (true) {
+                console.log(1)
                 var type = url.parse(req.url).pathname.replace(/^\//, "") || "user"
+                console.log('type',type)
                 var params = querystring.parse(url.parse(req.url).query)
+                console.log(params)
                 res.end(loadTemplate(type, params))
             } else {
                 res.end("")
@@ -91,11 +94,13 @@ function compileHTML( path ) {
 
     htmlSrc = grep( htmlSrc , 'js' , function( path ){
         var f = combine_path( basePath , path );
+        if(isDebug)return  utils.file.io.read( f );
         return minCode( ".js" , utils.file.io.read( f ) ).replace(/;?$|;?\s*$/,";")
     })    
 
     htmlSrc = grep( htmlSrc , 'css' , function( path ){
         var f = combine_path( basePath , path );
+        if(isDebug)return utils.file.io.read( f );
         return minCode( ".css" , utils.file.io.read( f ) , { noSplitCSS : true } )
     })    
 
@@ -179,7 +184,7 @@ function loadTemplate( type, params ){
         'ucsidebar',
         'ucsidebar_styles'
     ]
-
+    console.log(params.header)
     if( params.footer ) footerPathArr = params.footer.split(" ")
     if( params.header ) headerPathArr = params.header.split(" ")
     if( params.sidebar ) sidebarPathArr = params.sidebar.split(" ")
