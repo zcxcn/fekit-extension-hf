@@ -57,7 +57,9 @@
         "path": "ugc"
     },
     "user": {
-        "path": "user"
+        "path": "user",
+        "headerHTML":"header_user_mini.html",
+        "headerStyle":"header_user_styles.html"
     },
     "zhixin": {
         "path": "zhixin"
