@@ -8,9 +8,11 @@ fekit-extension-hf
 
 ### 使用方法  ###
 
-在 hf 项目中，调用 
+在 hf 项目中，调用
 
-    fekit hf 
+    fekit hf
+调试
+    fekit hf -s -p 3000
 
 即可压缩并混淆
 
@@ -64,7 +66,7 @@ sidebar | 同header，用于替换sidebar | ucsidebar+ucsidebar_styles | ?header
 开发分支根目录如果有template.html将自动调用template.html作为测试页面，如果没有将调用hf组件提供的默认页面，template.html提供以下hook供编译替换:
 
 hook  | 功能
------|----- 
+-----|-----
 {{type}} | 替换业务类型名称
 {{header}} | 替换header
 {{footer}} | 替换footer
@@ -76,7 +78,7 @@ hook  | 功能
             <!--#include virtual="/prd/home/header_main.html" -->
             <!--#include virtual="/prd/home/header_styles.html" -->
         </div>
- 
+
 默认template.html:
 
     <!doctype html>
@@ -111,4 +113,3 @@ hook  | 功能
         </div>  
     </body>
     </html>
-
